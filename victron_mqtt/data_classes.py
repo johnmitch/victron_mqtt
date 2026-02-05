@@ -241,7 +241,7 @@ class ParsedTopic:
         for i, part in enumerate(topic_parts):
             if part.isdigit():
                 topic_parts[i] = "##num##"
-            if part in ["L1", "L2", "L3"]:
+            if part in ["l1", "L2", "L3"]:
                 topic_parts[i] = "##phase##"
         return "/".join(topic_parts)
 
@@ -290,11 +290,11 @@ class ParsedTopic:
     @classmethod
     def make_unique_id(cls, device_short_unique_id: str, short_id: str) -> str:
         """Create a unique id from device unique id and short id."""
-        return f"{device_short_unique_id}_{short_id}"
+        return f"{device_short_unique_id}_{short_id}".lower()
 
     def get_device_unique_id(self) -> str:
         """Get the unique id of the device."""
-        return f"{self.device_type.code}_{self.device_id}"
+        return f"{self.device_type.code}_{self.device_id}".lower()
 
     def finalize_topic_fields(self, topic_desc: TopicDescriptor) -> None:
         """Finalize the fields of the ParsedTopic based on the TopicDescriptor."""
@@ -328,7 +328,7 @@ class ParsedTopic:
     def unique_id(self) -> str:
         """Get the unique id of the ParsedTopic."""
         assert self._unique_id is not None, f"unique_id is None for topic: {self.full_topic}"
-        return self._unique_id
+        return self._unique_id.lower()
 
     @property
     def key_values(self) -> dict[str, str]:
